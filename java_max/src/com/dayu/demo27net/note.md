@@ -36,3 +36,45 @@ TCP/TP网络模型：事实上的国际标准。
 | 网络层       | 网络层        | IP...            | 封装源和目标IP                     |
 | 数据链路层     | 数据链路层+物理层  | 比特流...           | 物理设备中传输                      |
 | 物理层       | ~          | ~                | ~                            |
+
+#### UDP通信的实现
+DatagramSocket：用于创建客户端、服务端
+
+|构造器| 说明                            |
+|:----|:------------------------------|
+|public DatagramSocket() throws SocketException| 创建一个客户端的socket对象，系统对随机分配一个端口号 |
+|public DatagramSocket(int port) throws SocketException| 创建一个服务端的socket对象，并指定端口号       |
+
+|方法| 说明        |
+|:----|:----------|
+|public void send(DatagramPacket p) throws IOException| 发送数据包     |
+|public void receive(DatagramPacket p) throws IOException| 使用数据包接收数据 |
+
+DatagramPacket：创建数据包
+
+|构造器| 说明           |
+|:----|:-------------|
+|public DatagramPacket(byte[] buf, int length, InetAddress ip, int port)| 创建发出去的数据包对象  |
+|public DatagramPacket(byte[] buf, int length)| 创建用来接收的数据包对象 |
+
+#### TCP通信的实现
+客户端
+
+|构造器| 说明                                                         |
+|:----|:-----------------------------------------------------------|
+|public Socket(String host, int port) throws IOException|根据指定的服务器ip，端口号请求与服务端建立连接，连接通过，就获得了客户端socket|
+
+|方法| 说明        |
+|:----|:----------|
+|public OutputStream getOutputStream() throws IOException| 获取字节输出流对象 |
+|public InputStream getInputStream() throws IOException| 获取字节输入流对象 |
+
+- 服务端是java.net包下的ServerSocket类
+
+|构造器| 说明                                                         |
+|:----|:-----------------------------------------------------------|
+|public ServerSocket(int port) throws IOException| 创建一个服务端的socket对象，并指定端口号 |
+
+|方法| 说明                                          |
+|:----|:--------------------------------------------|
+|public Socket accept() throws IOException| 阻塞等待客户端的连接请求，一旦与某个客户端成功连接，则返回服务端这边的Socket对象 |
