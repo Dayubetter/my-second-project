@@ -29,3 +29,8 @@ Class提供了从类中获取构造器的方法
 | --- | --- |
 |T newInstance(Object... initargs) | 调用此构造器对象表示的构造器，并传入参数，完成对象的初始化并返回|
 |public void setAccessible(boolean flag) | 设置为true，表示禁止检查访问控制(暴力反射)|
+
+#### 反射的基本作用
+可以得到一个类的全部成分然后可以操作
+可以破坏封装性
+可以绕过泛型的约束

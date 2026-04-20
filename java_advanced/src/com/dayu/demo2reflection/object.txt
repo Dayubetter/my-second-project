@@ -1,0 +1,16 @@
+==================Dog==================
+name:小花
+age:5
+hobby:null
+==================Student==================
+name:小王
+age:18
+==================Teacher==================
+name:小李
+age:30
+sex:nan
+course:java
+school:大学
+address:北京
+phone:12345678
+dog:Dog{name='小花', age=5}

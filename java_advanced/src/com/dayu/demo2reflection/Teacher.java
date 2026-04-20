@@ -7,7 +7,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+public class Teacher {
     private String name;
     private int age;
+    private String sex;
+    private String course;
+    private String school;
+    private String address;
+    private String phone;
+    private Dog dog;
 }
