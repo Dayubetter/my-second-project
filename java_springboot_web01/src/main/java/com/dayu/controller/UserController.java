@@ -14,8 +14,24 @@ import java.util.List;
 @RestController // 封装了一个@ResponseBody 作用：将controller返回值直接作为响应体数据返回给浏览器 返回值是对象或者集合的时候直接转成json响应给浏览器
 public class UserController {
 
-    @Autowired // 程序运行时,会自动的查询该类型的bean对象，并赋值给该成员变量
+    // 方式一：属性注入
+//    @Autowired // 程序运行时,会自动的查询该类型的bean对象，并赋值给该成员变量
+//    private UserService userService;
+
+    // 方式二：构造方法注入
+//    private final UserService userService;
+//    @Autowired  // 如果当前类中只有一个构造函数，可以省略
+//    public UserController(UserService userService) {
+//        this.userService = userService;
+//    }
+
+    // 方式三：setter方法注入
     private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     //    @RequestMapping("/list")
 //    public List<User> list() {
