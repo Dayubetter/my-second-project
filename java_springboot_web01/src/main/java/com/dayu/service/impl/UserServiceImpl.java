@@ -1,6 +1,6 @@
 package com.dayu.service.impl;
 
-import com.dayu.dao.UserDao;
+import com.dayu.mapper.UserDao;
 import com.dayu.pojo.User;
 import com.dayu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

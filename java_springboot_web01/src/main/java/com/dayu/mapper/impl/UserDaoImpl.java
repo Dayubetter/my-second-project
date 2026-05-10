@@ -1,7 +1,7 @@
-package com.dayu.dao.impl;
+package com.dayu.mapper.impl;
 
 import cn.hutool.core.io.IoUtil;
-import com.dayu.dao.UserDao;
+import com.dayu.mapper.UserDao;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;

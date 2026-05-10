@@ -1,4 +1,4 @@
-package com.dayu.dao;
+package com.dayu.mapper;
 
 import java.util.List;
 
