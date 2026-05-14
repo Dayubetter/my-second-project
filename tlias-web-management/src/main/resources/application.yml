@@ -13,5 +13,7 @@ spring:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 驼峰命名映射开关
+    map-underscore-to-camel-case: true
   # mapper映射配置文件的存放路径，默认是src/main/resources/mapper，规范写同包同名，不需要
   # maper-locations: classpath:mapper/*.xml
