@@ -4,13 +4,20 @@ import com.dayu.pojo.Dept;
 import com.dayu.pojo.Result;
 import com.dayu.service.DeptService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
+// @RequestMapping("/depts") 加类上面以后，方法自动拼接请求路径
 @RestController
 public class DeptController {
+
+    // private static final Logger log = LoggerFactory.getLogger(DeptController.class);
 
     @Autowired
     private DeptService deptService;
@@ -19,6 +26,7 @@ public class DeptController {
     @GetMapping("/depts")
     public Result list(){
         System.out.println("查询全部的部门数据");
+        log.info("查询全部的部门数据：");
         List<Dept> deptList = deptService.findAll();
         return Result.success(deptList);
     }
@@ -51,6 +59,7 @@ public class DeptController {
     @DeleteMapping("/depts")
     public Result delete(Integer id) {
         System.out.println("根据ID删除部门： " +  id);
+        log.info("根据ID删除部门： {}" ,  id);
         deptService.deleteById(id);
         return Result.success();
     }
@@ -61,6 +70,7 @@ public class DeptController {
     @PostMapping("/depts")
     public Result add(@RequestBody Dept dept) {
         System.out.println("添加部门： " +  dept);
+        log.info("添加部门： {}" ,  dept);
         deptService.add(dept);
         return Result.success();
     }
@@ -80,6 +90,7 @@ public class DeptController {
     @GetMapping("/depts/{id}")
     public Result getInfo(@PathVariable Integer id){
         System.out.println("查询部门ID： " +  id);
+        log.info("查询部门ID： {}" ,  id);
         Dept dept = deptService.getById(id);
         return Result.success(dept);
     }
@@ -90,6 +101,7 @@ public class DeptController {
     @PutMapping("/depts")
     public Result update(@RequestBody Dept dept){
         System.out.println("修改部门： " +  dept);
+        log.info("修改部门： {}" ,  dept);
         deptService.update(dept);
         return Result.success();
     }
