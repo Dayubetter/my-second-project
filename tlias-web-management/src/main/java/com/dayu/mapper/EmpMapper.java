@@ -54,4 +54,23 @@ public interface EmpMapper {
     @Insert("insert into emp(username, password, name, gender, phone, job, salary, image, entry_date, dept_id, create_time, update_time) " +
     "values (#{username},#{password},#{name},#{gender},#{phone},#{job},#{salary},#{image},#{entryDate},#{deptId},#{createTime},#{updateTime})")
     void insert(Emp emp);
+
+    /**
+     * 根据Id批量删除员工基本信息
+     * @param ids
+     */
+    void deleteByIds(List<Integer> ids);
+
+    /**
+     * 根据Id查询员工基本信息以及
+     * @param id
+     * @return
+     */
+    Emp getById(Integer id);
+
+    /**
+     * 根据Id修改员工基本信息
+     * @param emp
+     */
+    void updateById(Emp emp);
 }

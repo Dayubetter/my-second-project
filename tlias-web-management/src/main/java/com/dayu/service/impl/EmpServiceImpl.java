@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -27,6 +28,47 @@ public class EmpServiceImpl implements EmpService {
 
     @Autowired
     private EmpLogService empLogService;
+
+
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public void update(Emp emp) {
+        // 1。根据id修改员工的基本信息
+        emp.setUpdateTime(LocalDateTime.now());
+        empMapper.updateById(emp);
+
+        // 2. 根据id修改员工的工作经历信息
+        // a. 先删除
+        empExprMapper.deleteByEmpIds(Arrays.asList(emp.getId()));
+        // b. 添加
+        List<EmpExpr> exprList = emp.getExprList();
+        if (!CollectionUtils.isEmpty(exprList)){
+            exprList.forEach(empExpr -> {
+                empExpr.setEmpId(emp.getId());
+            });
+            empExprMapper.insertBatch(exprList);
+        }
+
+    }
+
+    @Override
+    public Emp getInfo(Integer id) {
+        return empMapper.getById(id);
+    }
+
+    /**
+     * 批量删除员工
+     * 一次删除，多次操作数据库，要么同时成功，要么同时失败，使用事务
+     * @param ids
+     */
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public void delete(List<Integer> ids) {
+        // 1，删除员工的基本信息
+        empMapper.deleteByIds(ids);
+        // 2.删除员工工作经历信息
+        empExprMapper.deleteByEmpIds(ids);
+    }
 
     /**
      * 原始分页查询

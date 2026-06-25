@@ -17,4 +17,10 @@ public interface EmpExprMapper {
      * @param empList
      */
     void insertBatch(List<EmpExpr> empList);
+
+    /**
+     * 根据员工Id批量删除员工工作经历
+     * @param ids
+     */
+    void deleteByEmpIds(List<Integer> empIds);
 }

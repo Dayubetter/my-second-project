@@ -11,6 +11,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 员工管理的controller
@@ -46,13 +48,51 @@ public class EmpController {
     }
 
     /**
-     * 新增员工
+     * 新增员工 将json格式的数据封装到一个对象中
      * @return
      */
     @PostMapping
     public Result save(@RequestBody Emp  emp){
         log.info("保存员工：{}", emp);
         empService.save(emp);
+        return Result.success();
+    }
+
+    /**
+     * 删除员工
+     * @return
+     */
+/*    @DeleteMapping
+    public Result delete(Integer[] ids){
+        log.info("删除员工：{}", Arrays.toString(ids));
+        return Result.success();
+    }*/
+    @DeleteMapping
+    public Result delete(@RequestParam List<Integer> ids){
+        log.info("删除员工：{}", ids);
+        empService.delete(ids);
+        return Result.success();
+    }
+
+    /**
+     * 路径参数要绑定方法形参必须加上注解@PathVariable
+     * @return
+     */
+    @GetMapping("/{id}")
+    public Result getInfo(@PathVariable Integer  id){
+        log.info("根据ID查询员工信息：{}", id);
+        Emp emp = empService.getInfo(id);
+        return Result.success(emp);
+    }
+
+    /**
+     * 更新员工信息
+     * @return
+     */
+    @PutMapping
+    public Result update (@RequestBody Emp emp){
+        log.info("修改员工：{}", emp);
+        empService.update(emp);
         return Result.success();
     }
 }
