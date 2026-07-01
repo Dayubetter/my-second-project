@@ -2,6 +2,7 @@ package com.dayu.service;
 
 import com.dayu.pojo.Emp;
 import com.dayu.pojo.EmpQueryParam;
+import com.dayu.pojo.LoginInfo;
 import com.dayu.pojo.PageResult;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,4 +44,11 @@ public interface EmpService {
      * @param emp
      */
     void update(Emp emp);
+
+    /**
+     * 员工登录
+     * @param emp
+     * @return
+     */
+    LoginInfo login(Emp emp);
 }
