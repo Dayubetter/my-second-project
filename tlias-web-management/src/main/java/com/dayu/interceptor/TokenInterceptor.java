@@ -1,6 +1,8 @@
 package com.dayu.interceptor;
 
+import com.dayu.utils.CurrentHolder;
 import com.dayu.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +33,12 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
         // 5.如果token存在，校验token，如果token有误，则拦截，返回错误信息 401
         try {
-            JwtUtils.parseToken(token);
+
+            Claims claims = JwtUtils.parseToken(token);
+            Integer empId = Integer.valueOf(claims.get("id").toString());
+            CurrentHolder.setCurrentId(empId);
+            log.info("当前用户id为：{},将其存入到ThreadLocal", empId);
+
         } catch (Exception e) {
             log.info("令牌非法：{}，响应401", token);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -40,5 +47,12 @@ public class TokenInterceptor implements HandlerInterceptor {
         // 6.如果token正确，则放行
         log.info("令牌合法：{}，响应200", token);
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        // 7.放行之后，删除ThreadLocal中的数据
+        log.info("删除ThreadLocal中的数据:{}", CurrentHolder.getCurrentId());
+        CurrentHolder.remove();
     }
 }

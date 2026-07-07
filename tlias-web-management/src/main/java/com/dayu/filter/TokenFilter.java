@@ -1,6 +1,8 @@
 package com.dayu.filter;
 
+import com.dayu.utils.CurrentHolder;
 import com.dayu.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +35,11 @@ public class TokenFilter implements Filter {
         }
         // 5.如果token存在，校验token，如果token有误，则拦截，返回错误信息 401
         try {
-            JwtUtils.parseToken(token);
+            Claims claims = JwtUtils.parseToken(token);
+            Integer empId = Integer.valueOf(claims.get("id").toString());
+            CurrentHolder.setCurrentId(empId);
+            log.info("当前用户id为：{},将其存入到ThreadLocal", empId);
+
         } catch (Exception e) {
             log.info("令牌非法：{}，响应401", token);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -42,5 +48,8 @@ public class TokenFilter implements Filter {
         // 6.如果token正确，则放行
         log.info("令牌合法：{}，响应200", token);
         filterChain.doFilter(request, response);
+
+        // 7.放行后删除ThreadLocal中的数据
+        CurrentHolder.remove();
     }
 }

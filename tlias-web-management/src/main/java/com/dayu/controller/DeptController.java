@@ -1,5 +1,6 @@
 package com.dayu.controller;
 
+import com.dayu.anno.Log;
 import com.dayu.pojo.Dept;
 import com.dayu.pojo.Result;
 import com.dayu.service.DeptService;
@@ -56,6 +57,7 @@ public class DeptController {
      * 接收请求参数:DELETE   /depts?id=10
      * 删除部门 - 方式三：如果请求参数名与形参变量名相同，直接定义方法形参即可接收(省略@RequestParam)
      */
+    @Log
     @DeleteMapping("/depts")
     public Result delete(Integer id) {
         System.out.println("根据ID删除部门： " +  id);
@@ -67,6 +69,7 @@ public class DeptController {
     /**
      * 添加部门
      */
+    @Log
     @PostMapping("/depts")
     public Result add(@RequestBody Dept dept) {
         System.out.println("添加部门： " +  dept);
@@ -98,6 +101,7 @@ public class DeptController {
     /**
      * 修改部门
      */
+    @Log
     @PutMapping("/depts")
     public Result update(@RequestBody Dept dept){
         System.out.println("修改部门： " +  dept);
