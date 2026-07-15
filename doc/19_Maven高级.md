@@ -3,7 +3,17 @@
 1. 按照功能模块拆分：比如：公共组件、商品模块、搜索模块、购物车模块、订单模块等
 2. 按层拆分，比如：公共组件、实体类、控制层、业务层、数据访问层
 3. 按照功能模块+层拆分
-
+eg: 从tlias中分出来一个tlias-pojo工程，里面存放所有实体类
+在tlias的pom中引入Tlias-pojo实体类
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.dayu</groupId>
+        <artifactId>tlias-pojo</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+</dependencies>
+```
 ### 继承与聚合
 #### 继承
 **继承关系实现：**
